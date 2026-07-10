@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kindred Portal - Zen Home (concept)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  /* Live portal tokens (src/index.css) - kept so this composes with the shipped app */
+  --primary:#38666f; --primary-dim:#2b5963; --on-primary:#fff;
+  --secondary:#849e85; --secondary-deep:#6f8f70; --secondary-container:#c8dbc8;
+  --tertiary:#c4a882; --tertiary-deep:#b08d4c;
+  --on-surface:#313333; --on-surface-variant:#5e5f5f; --on-surface-faint:#8a8b8b;
+  --outline:rgba(177,178,178,.28);
+  /* Zen additions: a warmer GM paper wash + a calm, non-siren critical clay */
+  --paper:#faf6ec;          /* GM paper, warmer than portal #fbf9f8 - reads like a still room */
+  --paper-2:#f2ecdd;
+  --card:#fffdf9;
+  --critical:#a8503c;       /* deep clay. serious, never a siren */
+  --critical-wash:#f4e2db;
+  --gold-wash:#f2e7d0;
+  --sage-wash:#e6ede2;
+  --shadow-soft:0 14px 40px rgba(49,51,51,.06);
+  --shadow-lift:0 20px 60px rgba(49,51,51,.10);
+  --ghost:1px solid rgba(177,178,178,.20);
+  --radius:16px; --radius-sm:10px; --radius-full:9999px;
+  --font-display:'Manrope',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-serif:'Newsreader',serif;   /* the ONE aesthetic risk: GM parent-brand serif, for the breathing line only */
+  --font-hand:'Caveat',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:var(--font-body);
+  color:var(--on-surface);
+  background:
+    radial-gradient(1200px 620px at 50% -12%, #fffdf7 0%, rgba(255,253,247,0) 62%),
+    linear-gradient(180deg,var(--paper) 0%, var(--paper-2) 100%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+  min-height:100%;
+  line-height:1.5;
+}
+
+/* ---- chrome: a hint of the real portal so this reads in-context ---- */
+.frame{max-width:1080px;margin:0 auto;padding:0 24px}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px 0;max-width:1080px;margin:0 auto;
+}
+.brandmark{display:flex;align-items:center;gap:10px}
+.seed{width:26px;height:26px}
+.brandmark b{font-family:var(--font-display);font-weight:800;font-size:.95rem;letter-spacing:-.01em}
+.brandmark span{color:var(--on-surface-faint);font-size:.72rem;font-weight:600}
+.live{
+  display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:600;
+  color:var(--secondary-deep);
+}
+.live .dot{width:7px;height:7px;border-radius:50%;background:var(--secondary);
+  box-shadow:0 0 0 0 rgba(132,158,133,.5);animation:pulseDot 2.6s ease-out infinite}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(132,158,133,.45)}70%{box-shadow:0 0 0 9px rgba(132,158,133,0)}100%{box-shadow:0 0 0 0 rgba(132,158,133,0)}}
+
+/* ---- the toggle (demo control) ---- */
+.statectl{display:inline-flex;background:rgba(255,255,255,.7);border:var(--ghost);
+  border-radius:var(--radius-full);padding:3px;gap:2px;backdrop-filter:blur(6px)}
+.statectl button{
+  font-family:var(--font-display);font-weight:600;font-size:.72rem;letter-spacing:.01em;
+  border:0;background:transparent;color:var(--on-surface-variant);
+  padding:7px 14px;border-radius:var(--radius-full);cursor:pointer;transition:all .2s ease}
+.statectl button[aria-pressed="true"]{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(56,102,111,.28)}
+.statectl button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+
+/* ---- HERO: the morning read ---- */
+.hero{text-align:center;padding:46px 24px 8px;position:relative}
+.greeting{font-family:var(--font-hand);font-size:1.7rem;color:var(--secondary-deep);line-height:1;margin-bottom:6px}
+
+/* breathing halo behind a seed glyph */
+.breath{position:relative;width:118px;height:118px;margin:6px auto 20px;display:grid;place-items:center}
+.breath .ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--secondary);opacity:.0}
+.breath .ring.r1{animation:breathe 7s ease-in-out infinite}
+.breath .ring.r2{animation:breathe 7s ease-in-out infinite .9s}
+.breath .ring.r3{animation:breathe 7s ease-in-out infinite 1.8s}
+@keyframes breathe{
+  0%{transform:scale(.42);opacity:0}
+  30%{opacity:.5}
+  70%{opacity:.14}
+  100%{transform:scale(1.05);opacity:0}
+}
+.breath .core{width:46px;height:46px;border-radius:50%;
+  background:radial-gradient(circle at 38% 34%, #a9c4ab, var(--secondary-deep));
+  box-shadow:0 8px 22px rgba(111,143,112,.35), inset 0 2px 5px rgba(255,255,255,.4);
+  display:grid;place-items:center;transition:all .5s ease}
+.breath .core svg{width:26px;height:26px}
+
+.headline{
+  font-family:var(--font-serif);font-weight:400;
+  font-size:clamp(2rem,4.8vw,3rem);line-height:1.08;letter-spacing:-.01em;
+  color:var(--on-surface);max-width:16ch;margin:0 auto 14px}
+.headline em{font-style:italic;color:var(--primary-dim)}
+.subline{font-size:1.02rem;color:var(--on-surface-variant);max-width:52ch;margin:0 auto;font-weight:400}
+.subline b{color:var(--on-surface);font-weight:600}
+.checkedline{margin-top:16px;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:600;color:var(--on-surface-faint)}
+
+/* ---- the sprig: one leaf per life-area, colored by real status (the signature) ---- */
+.sprig-wrap{max-width:760px;margin:34px auto 0;padding:0 8px}
+.sprig{width:100%;height:118px;display:block;overflow:visible}
+.leaf{cursor:pointer;transition:fill .5s ease, transform .3s ease;transform-origin:center;outline:none}
+.leaf:hover{transform:scale(1.08)}
+.leaf:focus-visible{filter:drop-shadow(0 0 0 2px var(--primary))}
+.leaf-clear{fill:var(--secondary)}
+.leaf-know{fill:var(--primary)}
+.leaf-attn{fill:var(--tertiary-deep)}
+.leaf-crit{fill:var(--critical)}
+.veins{stroke:rgba(255,255,255,.55);stroke-width:1;fill:none}
+.stem{stroke:#9caf8f;stroke-width:2.4;fill:none;stroke-linecap:round}
+.leaf-label{font-family:var(--font-display);font-size:11px;font-weight:600;fill:var(--on-surface-variant);text-anchor:middle}
+.leaf-count{font-family:var(--font-display);font-size:11px;font-weight:800;text-anchor:middle}
+.sway{animation:sway 9s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-.6deg)}50%{transform:rotate(.6deg)}}
+.sprig-legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:6px}
+.sprig-legend span{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;color:var(--on-surface-faint)}
+.sprig-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+/* ---- attention stack: progressive disclosure ---- */
+.attention{max-width:760px;margin:44px auto 0}
+.attn-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding:0 4px}
+.attn-eyebrow h2{font-family:var(--font-display);font-weight:700;font-size:1.02rem;color:var(--on-surface);white-space:nowrap}
+.attn-eyebrow .rule{height:1px;background:var(--outline);flex:1}
+.attn-eyebrow .n{font-family:var(--font-display);font-weight:800;font-size:.78rem;color:var(--on-surface-faint)}
+
+.tier-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  margin:22px 4px 10px;display:flex;align-items:center;gap:8px}
+.tier-label .swatch{width:8px;height:8px;border-radius:2px}
+.tier-crit{color:var(--critical)} .tier-crit .swatch{background:var(--critical)}
+.tier-attn{color:var(--tertiary-deep)} .tier-attn .swatch{background:var(--tertiary-deep)}
+.tier-know{color:var(--primary)} .tier-know .swatch{background:var(--primary)}
+
+.card{
+  background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-soft);
+  border:var(--ghost);padding:18px 20px;margin-bottom:12px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;
+  border-left:4px solid transparent;transition:box-shadow .18s ease, transform .18s ease}
+.card:hover{box-shadow:var(--shadow-lift);transform:translateY(-1px)}
+.card.crit{border-left-color:var(--critical)}
+.card.attn{border-left-color:var(--tertiary-deep)}
+.card.know{border-left-color:var(--primary)}
+.card .num{font-family:var(--font-display);font-weight:800;font-size:2rem;line-height:1;min-width:56px;text-align:center}
+.card.crit .num{color:var(--critical)}
+.card.attn .num{color:var(--tertiary-deep)}
+.card.know .num{color:var(--primary)}
+.card .num small{display:block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-faint);margin-top:5px}
+.card .body h3{font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:3px;color:var(--on-surface)}
+.card .body p{font-size:.86rem;color:var(--on-surface-variant);max-width:46ch}
+.card .peek{
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+  font-family:var(--font-display);font-weight:600;font-size:.8rem;color:var(--primary-dim);
+  text-decoration:none;padding:9px 14px;border-radius:var(--radius-full);
+  background:rgba(56,102,111,.07);transition:background .16s ease, gap .16s ease}
+.card .peek:hover{background:rgba(56,102,111,.14);gap:9px}
+.card .peek:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.card .peek svg{width:14px;height:14px}
+
+/* ---- all-clear footer ---- */
+.allwell{max-width:640px;margin:40px auto 0;text-align:center}
+.allwell .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:14px}
+.wchip{display:inline-flex;align-items:center;gap:8px;background:var(--sage-wash);
+  color:var(--secondary-deep);border-radius:var(--radius-full);padding:8px 15px;
+  font-size:.82rem;font-weight:600}
+.wchip svg{width:14px;height:14px}
+.allwell .foot{font-size:.86rem;color:var(--on-surface-faint);max-width:48ch;margin:0 auto}
+.allwell .peekall{margin-top:20px}
+.peekall a{font-family:var(--font-display);font-weight:600;font-size:.82rem;color:var(--primary-dim);
+  text-decoration:none;border-bottom:1.5px solid rgba(56,102,111,.3);padding-bottom:2px}
+.peekall a:hover{border-color:var(--primary)}
+
+.pagefoot{max-width:760px;margin:56px auto 40px;text-align:center;
+  font-size:.72rem;color:var(--on-surface-faint);line-height:1.7}
+.pagefoot code{font-family:var(--font-body);background:rgba(0,0,0,.04);padding:1px 6px;border-radius:5px}
+
+[hidden]{display:none !important}
+
+/* responsive */
+@media (max-width:640px){
+  .card{grid-template-columns:auto 1fr;gap:12px}
+  .card .peek{grid-column:1 / -1;justify-content:center}
+  .headline{font-size:2rem}
+  .sprig{height:100px}
+  .leaf-label{font-size:9px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .breath .ring{animation:none;opacity:.16}
+  .sway{animation:none}
+  .live .dot{animation:none}
+  *{transition:none !important}
+}
+</style>
+</head>
+<body data-state="clear">
+
+<div class="topbar">
+  <div class="brandmark">
+    <svg class="seed" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path d="M16 28C16 20 10 16 6 15c0 8 6 12 10 13Z" fill="#849e85"/>
+      <path d="M16 28c0-9 6-13 10-14 0 8-6 13-10 14Z" fill="#6f8f70"/>
+      <path d="M16 28V13" stroke="#9caf8f" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <b>Kindred</b> <span>&nbsp;Growing Mindfully</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <span class="live"><span class="dot"></span>Live</span>
+    <div class="statectl" role="group" aria-label="Preview state">
+      <button id="btn-clear" aria-pressed="true" onclick="setState('clear')">All clear</button>
+      <button id="btn-attention" aria-pressed="false" onclick="setState('attention')">Needs attention</button>
+    </div>
+  </div>
+</div>
+
+<main class="frame">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" aria-live="polite">
+    <div class="greeting">Thursday morning, Ashley</div>
+
+    <div class="breath" aria-hidden="true">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="core" id="core">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <!-- clear copy -->
+    <div data-when="clear">
+      <h1 class="headline">Everything is <em>calm</em> at Growing Mindfully.</h1>
+      <p class="subline">Three rooms balanced. Tasks current. Documents in order. <b>Nothing needs you right now.</b></p>
+      <div class="checkedline">Watched continuously &middot; last read 9:14 AM</div>
+    </div>
+
+    <!-- attention copy -->
+    <div data-when="attention" hidden>
+      <h1 class="headline">A few things could use your <em>eyes</em>.</h1>
+      <p class="subline">Most of the school is running itself. <b>Four items are waiting below</b>, most important first. Everything else is calm.</p>
+      <div class="checkedline">Watched continuously &middot; last read 9:14 AM</div>
+    </div>
+  </section>
+
+  <!-- ================= SPRIG (signature) ================= -->
+  <section class="sprig-wrap" aria-label="School health by area">
+    <svg class="sprig sway" viewBox="0 0 760 118" role="img" aria-labelledby="sprigtitle">
+      <title id="sprigtitle">Six areas of the school shown as leaves on one stem. A full green sprig means all is well.</title>
+      <!-- stem -->
+      <path class="stem" d="M40 78 C 200 58, 560 58, 720 78" />
+      <!-- leaves: generated positions; each is one domain -->
+      <g id="leaves"></g>
+      <g id="leaflabels"></g>
+    </svg>
+    <div class="sprig-legend" aria-hidden="true">
+      <span><i style="background:var(--secondary)"></i>Clear</span>
+      <span><i style="background:var(--primary)"></i>Worth knowing</span>
+      <span><i style="background:var(--tertiary-deep)"></i>Needs attention</span>
+      <span><i style="background:var(--critical)"></i>Critical</span>
+    </div>
+  </section>
+
+  <!-- ================= ALL-CLEAR FOOTER ================= -->
+  <section class="allwell" data-when="clear">
+    <div class="chips">
+      <span class="wchip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>0 tasks overdue</span>
+      <span class="wchip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>All required documents on file</span>
+      <span class="wchip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No room over capacity</span>
+      <span class="wchip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Staff attendance clean</span>
+    </div>
+    <p class="foot">Two children start within two weeks and four move rooms this month. Both are on track and need no decision today.</p>
+    <div class="peekall"><a href="#">Take a deeper peek anyway &rarr;</a></div>
+  </section>
+
+  <!-- ================= ATTENTION STACK ================= -->
+  <section class="attention" data-when="attention" hidden>
+    <div class="attn-eyebrow">
+      <h2>Needs your eyes</h2>
+      <div class="rule"></div>
+      <span class="n">4 of 6 areas calm</span>
+    </div>
+
+    <!-- CRITICAL -->
+    <div class="tier-label tier-crit"><span class="swatch"></span>Critical &middot; act today</div>
+    <div class="card crit">
+      <div class="num">3<small>expired</small></div>
+      <div class="body">
+        <h3>Three physicals have expired</h3>
+        <p>Grace S., Owen C., and one more cannot attend until a current LIC 700 is on file. Reach the families or record a waiver.</p>
+      </div>
+      <a class="peek" href="#">Open documents <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <!-- NEEDS ATTENTION -->
+    <div class="tier-label tier-attn"><span class="swatch"></span>Needs attention &middot; this week</div>
+    <div class="card attn">
+      <div class="num">65<small>missing</small></div>
+      <div class="body">
+        <h3>Immunization records missing across the roster</h3>
+        <p>None block a child today, but the gap grows as August start dates arrive. Worth a batch reminder to families.</p>
+      </div>
+      <a class="peek" href="#">Review the matrix <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="card attn">
+      <div class="num">2<small>overdue</small></div>
+      <div class="body">
+        <h3>Two tasks slipped past their due date</h3>
+        <p>The oldest is four days over. The rest of the agenda is on time.</p>
+      </div>
+      <a class="peek" href="#">Go to agenda <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="card attn">
+      <div class="num">3<small>marks</small></div>
+      <div class="body">
+        <h3>Maya R. reached three attendance marks</h3>
+        <p>Three marks this pay period crosses the review line. A conversation, not a crisis.</p>
+      </div>
+      <a class="peek" href="#">Open accountability <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <!-- WORTH KNOWING -->
+    <div class="tier-label tier-know"><span class="swatch"></span>Worth knowing &middot; no action needed</div>
+    <div class="card know">
+      <div class="num">18<small>of 18</small></div>
+      <div class="body">
+        <h3>Toddler 1 is full today</h3>
+        <p>Expected. It opens to 17 of 18 in August as confirmed transitions land.</p>
+      </div>
+      <a class="peek" href="#">See the forecast <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+
+  <div class="pagefoot">
+    Concept mockup &middot; not wired to live data. Statuses map to real portal signals:
+    documents matrix (expired / missing / expiring), <code>taskPulse</code> overdue, room occupancy vs cap,
+    accountability marks, upcoming starts, and the forecast feed.
+  </div>
+</main>
+
+<script>
+/* Six life-areas, mapped to the real portal routes + data sources.
+   status per state derives from the same thresholds the app already uses. */
+const DOMAINS = [
+  { key:'rooms',     label:'Rooms',      clear:'clear', attention:'know' },
+  { key:'tasks',     label:'Tasks',      clear:'clear', attention:'attn' },
+  { key:'documents', label:'Documents',  clear:'clear', attention:'crit' },
+  { key:'enroll',    label:'Enrollment', clear:'clear', attention:'clear' },
+  { key:'staff',     label:'Staff',      clear:'clear', attention:'attn' },
+  { key:'forecast',  label:'Forecast',   clear:'clear', attention:'clear' },
+];
+const COUNT = { rooms:'', tasks:'2', documents:'3', enroll:'', staff:'3', forecast:'' };
+const CLASS = { clear:'leaf-clear', know:'leaf-know', attn:'leaf-attn', crit:'leaf-crit' };
+
+/* build the leaves along the stem curve */
+function buildSprig(){
+  const leaves = document.getElementById('leaves');
+  const labels = document.getElementById('leaflabels');
+  leaves.innerHTML=''; labels.innerHTML='';
+  const n = DOMAINS.length;
+  DOMAINS.forEach((d,i)=>{
+    const t = (i+0.5)/n;
+    const x = 40 + t*680;
+    const y = 78 - Math.sin(t*Math.PI)*20;      // follow the stem arc
+    const up = i%2===0;                          // alternate leaves up/down
+    const dir = up ? -1 : 1;
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','leaf');
+    g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');
+    g.dataset.key = d.key;
+    // an almond leaf via two quadratic arcs, rotated toward the stem
+    const lx=x, ly=y + dir*6;
+    const tipY = ly + dir*34;
+    const path = `M ${lx} ${ly} Q ${lx-14} ${(ly+tipY)/2}, ${lx} ${tipY} Q ${lx+14} ${(ly+tipY)/2}, ${lx} ${ly} Z`;
+    g.innerHTML =
+      `<path d="${path}" class="leafshape"></path>`+
+      `<path d="M ${lx} ${ly} L ${lx} ${tipY}" class="veins"></path>`;
+    leaves.appendChild(g);
+    // label
+    const ty = up ? (tipY - 44) : (tipY + 16);
+    const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    lbl.setAttribute('class','leaf-label');
+    lbl.setAttribute('x',lx); lbl.setAttribute('y',ty);
+    lbl.textContent = d.label;
+    labels.appendChild(lbl);
+    // count badge (only when present in a state; managed in paint)
+    const cnt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    cnt.setAttribute('class','leaf-count');
+    cnt.setAttribute('x',lx); cnt.setAttribute('y', up ? (tipY-30) : (tipY+30));
+    cnt.dataset.key = d.key;
+    labels.appendChild(cnt);
+    g.addEventListener('click',()=>jumpTo(d.key));
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();jumpTo(d.key);}});
+  });
+}
+
+function paintSprig(state){
+  DOMAINS.forEach(d=>{
+    const status = d[state];
+    const g = document.querySelector(`.leaf[data-key="${d.key}"] .leafshape`);
+    if(g){ g.setAttribute('class','leafshape'); }
+    const leaf = g;
+    if(leaf){
+      leaf.classList.add(CLASS[status]);
+      // reset other status classes
+      Object.values(CLASS).forEach(c=>{ if(c!==CLASS[status]) leaf.classList.remove(c); });
+    }
+    const cnt = document.querySelector(`text.leaf-count[data-key="${d.key}"]`);
+    if(cnt){
+      const show = state==='attention' && (status==='attn'||status==='crit') && COUNT[d.key];
+      cnt.textContent = show ? COUNT[d.key] : '';
+      cnt.style.fill = status==='crit' ? 'var(--critical)' : 'var(--tertiary-deep)';
+    }
+  });
+}
+
+function jumpTo(key){
+  if(document.body.dataset.state!=='attention'){ setState('attention'); }
+  const first = document.querySelector('.attention .card');
+  if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function setState(s){
+  document.body.dataset.state = s;
+  document.querySelectorAll('[data-when]').forEach(el=>{
+    el.hidden = el.getAttribute('data-when')!==s;
+  });
+  document.getElementById('btn-clear').setAttribute('aria-pressed', s==='clear');
+  document.getElementById('btn-attention').setAttribute('aria-pressed', s==='attention');
+  // core glyph shifts from check (clear) to a gentle open-eye dot (attention)
+  const core = document.getElementById('core');
+  if(s==='attention'){
+    core.style.background='radial-gradient(circle at 38% 34%, #dcc493, var(--tertiary-deep))';
+    core.innerHTML='<svg viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.4" fill="#fff"/></svg>';
+    document.querySelectorAll('.breath .ring').forEach(r=>r.style.borderColor='var(--tertiary)');
+  }else{
+    core.style.background='radial-gradient(circle at 38% 34%, #a9c4ab, var(--secondary-deep))';
+    core.innerHTML='<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    document.querySelectorAll('.breath .ring').forEach(r=>r.style.borderColor='var(--secondary)');
+  }
+  paintSprig(s);
+}
+
+buildSprig();
+const _initial = new URLSearchParams(location.search).get('state')==='attention' ? 'attention' : 'clear';
+setState(_initial);
+</script>
+</body>
+</html>
