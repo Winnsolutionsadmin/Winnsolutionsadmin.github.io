@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>GM Lifecycle Funnel - Review Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Manrope:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF7EE; --paper-2:#F0E9D8; --ink:#1F2A2E; --ink-2:#3F5359; --ink-3:#6F7F84;
+  --teal:#5FAEB6; --teal-deep:#3D8189; --sage:#9BB99E; --sage-deep:#6F8F70;
+  --dusty:#7AA8C4; --dusty-deep:#4F7A99; --gold:#C9A86A; --blush:#E8C9B5;
+  --r:6px; --shadow:0 1px 2px rgba(31,42,46,.06),0 8px 24px rgba(31,42,46,.06);
+  --shadow-sm:0 1px 2px rgba(31,42,46,.05),0 3px 10px rgba(31,42,46,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600;line-height:1.15;letter-spacing:-.01em;color:var(--ink)}
+a{color:var(--teal-deep);text-decoration:none}
+a:hover{text-decoration:underline}
+.hero{background:linear-gradient(180deg,var(--paper-2),var(--paper));border-bottom:1px solid rgba(31,42,46,.08);padding:46px 0 34px}
+.kicker{font-family:Caveat,cursive;font-size:1.5rem;color:var(--teal-deep);margin:0 0 2px}
+.hero h1{font-size:2.5rem;margin:0 0 10px}
+.hero p{color:var(--ink-2);max-width:66ch;margin:0;font-size:1.06rem}
+.meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid rgba(31,42,46,.1);border-radius:100px;padding:5px 12px;font-size:.82rem;color:var(--ink-2);box-shadow:var(--shadow-sm)}
+.pill b{color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%}
+.g{background:var(--sage-deep)} .a{background:var(--gold)} .b{background:var(--dusty-deep)}
+section{padding:34px 0;border-bottom:1px solid rgba(31,42,46,.07)}
+section h2{font-size:1.6rem;margin:0 0 4px}
+.lead{color:var(--ink-3);margin:0 0 20px;font-size:.98rem}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:720px){.g2,.g3{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid rgba(31,42,46,.09);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.card h3{font-size:1.06rem;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+.card p{margin:0 0 10px;color:var(--ink-2);font-size:.92rem}
+.tag{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;padding:3px 8px;border-radius:100px;display:inline-block}
+.tag.live{background:#e5f0ec;color:var(--sage-deep)}
+.tag.built{background:#e7f0f2;color:var(--teal-deep)}
+.tag.gated{background:#f6ecda;color:#8a6d2a}
+.tag.hold{background:#f3e2da;color:#a85c3e}
+.btn{display:inline-block;background:var(--teal-deep);color:#fff;border-radius:var(--r);padding:8px 15px;font-size:.86rem;font-weight:600;box-shadow:var(--shadow-sm)}
+.btn:hover{background:#356f76;text-decoration:none}
+.btn.ghost{background:#fff;color:var(--teal-deep);border:1px solid rgba(61,129,137,.35)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid rgba(31,42,46,.07);vertical-align:top}
+th{background:var(--paper-2);font-family:Manrope;font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+.rec{color:var(--sage-deep);font-weight:600}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.step{flex:1;min-width:150px;background:#fff;border:1px solid rgba(31,42,46,.09);border-left:3px solid var(--teal);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow-sm)}
+.step .n{font-family:Caveat;font-size:1.3rem;color:var(--teal-deep)}
+.step b{display:block;font-size:.92rem;margin:2px 0 4px}
+.step span{font-size:.82rem;color:var(--ink-3)}
+.note{background:#fff;border:1px solid var(--blush);border-left:3px solid var(--gold);border-radius:var(--r);padding:12px 16px;font-size:.9rem;color:var(--ink-2);margin-top:8px}
+.foot{padding:28px 0 60px;color:var(--ink-3);font-size:.82rem}
+ol.dec{counter-reset:d;list-style:none;padding:0;margin:0}
+ol.dec li{background:#fff;border:1px solid rgba(31,42,46,.09);border-radius:var(--r);padding:12px 14px 12px 46px;position:relative;margin-bottom:9px;box-shadow:var(--shadow-sm);font-size:.92rem}
+ol.dec li:before{counter-increment:d;content:counter(d);position:absolute;left:12px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--teal-deep);color:#fff;font-family:Manrope;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+ol.dec b{color:var(--ink)}
+.small{font-size:.82rem;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+  <p class="kicker">Growing Mindfully &middot; Paid Acquisition</p>
+  <h1>Lifecycle Funnel &amp; Tour-Waiver Program</h1>
+  <p>The full review hub for the tour-waiver test, the four-stage lifecycle email journey, the ad-variant matrix, and the per-family campaign grid. Live links, the master plan, the six-model counsel verdict, and the open decisions, all in one place.</p>
+  <div class="meta">
+    <span class="pill"><span class="dot g"></span>Built 2026-07-11</span>
+    <span class="pill"><span class="dot g"></span>LP <b>LIVE</b></span>
+    <span class="pill"><span class="dot g"></span>Backend <b>merged</b></span>
+    <span class="pill"><span class="dot a"></span>Campaign staged for <b>7/16</b></span>
+    <span class="pill"><span class="dot b"></span>24 Opus agents &middot; 5-model panel</span>
+  </div>
+</div></div>
+
+<section><div class="wrap">
+  <h2>1 &middot; Live right now</h2>
+  <p class="lead">Shipped this session. Verified serving.</p>
+  <div class="grid g2">
+    <div class="card">
+      <h3><span class="tag live">Live</span> Tour-offer landing page</h3>
+      <p>The isolated conversion-test LP. noindex, zero internal links from the main site, entry only via the ad click. Licensing-clean, brand-matched. Books a tour, then completes the waitlist application with the fee waived on tour completion.</p>
+      <div class="links">
+        <a class="btn" href="https://www.growingmindfully.org/lp/tour-offer/" target="_blank">Open live LP &rarr;</a>
+        <a class="btn ghost" href="https://www.growingmindfully.org/tour/" target="_blank">Tour booking page</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="tag built">Merged</span> Tour-waiver backend</h3>
+      <p>The waiver state machine on the gm-waitlist worker: pending_tour, 14-day book-and-complete window, $65 waived day-of-tour on Ashley's attendance mark, $45 enrollment fee waived on same-day reserve. Additive side tables only. Gated dark until the 7/16 launch batch.</p>
+      <div class="links">
+        <a class="btn ghost" href="https://github.com/Winnsolutionsadmin/gm-waitlist" target="_blank">gm-waitlist repo</a>
+        <a class="btn ghost" href="https://github.com/Winnsolutionsadmin/growingmindfully" target="_blank">site repo</a>
+      </div>
+    </div>
+  </div>
+  <div class="note"><b>Not yet live (correctly):</b> the ad campaign itself launches with the 7/16 review batch after a design-QA gate (preview links to you). The demote of the GBP Local-actions conversions to secondary is driven to its control and owned for the next ads pass; it only needs to precede a tour-conversion import, so it does not block today.</div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>2 &middot; The lifecycle journey</h2>
+  <p class="lead">A family who pays the waitlist fee but has not toured gets walked through this automatically. Human out of the loop; Ashley's no-show mark is the only operating input.</p>
+  <div class="flow">
+    <div class="step"><span class="n">T1</span><b>Reserve Your Space</b><span>Fee settled, no tour. Sent promptly (counsel reversed the 24h delay). Wrapped links tracked.</span></div>
+    <div class="step"><span class="n">T2</span><b>Exit winback popup</b><span>Clicks T1 but tries to leave the reserve page. Offers a tour, routes to /tour/, tracks the booking.</span></div>
+    <div class="step"><span class="n">T3</span><b>Book a tour, waive the enrollment fee</b><span>+24h, still no tour. Different picture, tracked CTA to /tour/.</span></div>
+    <div class="step"><span class="n">T4</span><b>Post-tour promo</b><span>1h after the tour ends, only if Ashley marked it attended. Reserve same day, the $45 enrollment fee is waived.</span></div>
+  </div>
+  <div class="note"><b>Counsel guardrails baked in:</b> T4 never fires on an unmarked tour (suppress plus auto-ping Ashley). The $45 waiver deadline is end of the tour's calendar day, not 5pm, so afternoon tours are not a 30-minute dark pattern. One $45 waiver max per family (first-writer-wins).</div>
+  <div class="links" style="margin-top:14px">
+    <a class="btn ghost" href="design/email-reserve.md" target="_blank">T1 copy</a>
+    <a class="btn ghost" href="design/winback-popup.md" target="_blank">T2 popup</a>
+    <a class="btn ghost" href="design/email-tour-nudge.md" target="_blank">T3 copy</a>
+    <a class="btn ghost" href="design/email-post-tour.md" target="_blank">T4 copy</a>
+    <a class="btn ghost" href="design/lifecycle-engine.md" target="_blank">Engine spec</a>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>3 &middot; Ad variant matrix</h2>
+  <p class="lead">Seven concepts, but at 43 to 58 clicks per week you cannot run them at once. The plan is a wave pipeline: max two live, two to three week waves, V4 first because it has zero backend gate and unblocks the tour-tracking events everything else needs.</p>
+  <table>
+    <tr><th>Wave</th><th>Variant</th><th>Angle</th><th>Status</th></tr>
+    <tr><td>0</td><td><b>V4 Free no-obligation tour</b></td><td>Zero-gate cold start; fires the first real tour conversions</td><td><span class="tag built">First</span></td></tr>
+    <tr><td>1</td><td><b>V1 Open Enrollment!</b></td><td>The no-waitlist-fee campaign, brand-forward</td><td><span class="tag built">Queued</span></td></tr>
+    <tr><td>1</td><td><b>V5 $65 waitlist fee waived</b></td><td>Direct offer, dollar figure now allowed in ad copy</td><td><span class="tag built">Queued</span></td></tr>
+    <tr><td>2</td><td>V2 Back to School</td><td>Seasonal flight, real deadlines only</td><td><span class="tag gated">Later</span></td></tr>
+    <tr><td>&mdash;</td><td>V3 $100+ in fees waived this week only</td><td>Stacked $65+$45; needs the general $45 choke point and honest rotation</td><td><span class="tag hold">On hold</span></td></tr>
+  </table>
+  <div class="links" style="margin-top:14px">
+    <a class="btn ghost" href="design/ad-variants.md" target="_blank">Full variant decks</a>
+    <a class="btn ghost" href="design/lp-factory.md" target="_blank">LP factory + registry</a>
+    <a class="btn ghost" href="design/lp-open-enrollment-mockup.html" target="_blank">Open Enrollment LP mockup</a>
+    <a class="btn ghost" href="design/policy-compliance.md" target="_blank">Policy verdicts</a>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>4 &middot; Measurement &amp; the campaign grid</h2>
+  <p class="lead">Every family, every campaign, every state, auditable without asking anyone. This grid is the closed-loop evidence surface that satisfies the HOOTL contract.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Per-family grid</h3><p>Rows are waitlist families, columns are campaigns. Cells: received, engaged-not-converted, converted. Click a cell for the send / open / click / convert timeline.</p><a href="design/campaign-grid.md" target="_blank">Grid spec &rarr;</a></div>
+    <div class="card"><h3>Independent cohorts</h3><p>The Open Enrollment waiver cohort tracks separately and converts comparatively against the standard fee-paid flow. ?offer= is the source of truth.</p><a href="design/measurement-v2.md" target="_blank">Measurement v2 &rarr;</a></div>
+    <div class="card"><h3>Tracking layer</h3><p>Existing campaign_sends plus a new campaign_events table for drill-down. Open pixel plus wrapped-link clicks. Clicks are truth; opens are directional (Apple MPP inflates them).</p><a href="design/data-tracking.md" target="_blank">Data spec &rarr;</a></div>
+  </div>
+  <div class="note"><b>Honesty guard:</b> a pre-registered INCONCLUSIVE outcome is wired into the decision rules so ~100 sessions yielding 2 to 5 conversions cannot manufacture a confident SCALE or KILL call. The panel was blunt: no lifecycle optimization fixes a 50-click-per-week trickle, so QS / bids / GBP-local work runs in parallel.</div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>5 &middot; Counsel panel verdict</h2>
+  <p class="lead">Five models, two adversarial rounds. What they endorsed, and where they reversed my draft recommendations.</p>
+  <div class="grid g2">
+    <div class="card"><h3><span class="dot g" style="display:inline-block"></span> Endorsed</h3>
+      <p><b>Wave sequencing</b> (+86 to +95), <b>V3 hold</b> (+75 to +96), <b>end-of-day $45 deadline</b> not 5pm, <b>grid as row attribute</b>, and unanimously the <b>cohort-predicate bug fix</b> (+82 to +100): the literal fee_paid=1 trigger silently skips the fee-waived Open Enrollment cohort, the very cohort under test.</p></div>
+    <div class="card"><h3><span class="dot a" style="display:inline-block"></span> Reversed my draft</h3>
+      <p><b>T1 sends promptly</b>, not +24h (peak intent). <b>Drop the lifetime 3-email cap</b> (childcare cycles run months). <b>Never send T4 on an unmarked tour</b> (unanimous). All three are folded into the plan.</p></div>
+  </div>
+  <div class="note"><b>Panel's top flagged risk:</b> launching on the existing clickwrap, where a waived family signs terms describing a non-refundable fee they never paid (-44 to -80 across all five). Your D4 ruling stands; the panel notes the fix is a single conditional sentence, surfaced below as decision 1.</div>
+  <div class="links" style="margin-top:14px">
+    <a class="btn" href="MASTER-PLAN.md" target="_blank">Master plan &rarr;</a>
+    <a class="btn ghost" href="COUNSEL-DOSSIER.md" target="_blank">Counsel dossier</a>
+    <a class="btn ghost" href="COUNSEL-VERDICT.txt" target="_blank">Full ballots</a>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>6 &middot; Open decisions for you</h2>
+  <p class="lead">Only genuinely-yours calls. Answered items from the earlier round are not repeated.</p>
+  <ol class="dec">
+    <li><b>Clickwrap one-liner.</b> Add one conditional sentence to the existing terms so a waived family is not signing a non-refundable-fee clause. No counsel pass. <span class="rec">Rec: take it.</span></li>
+    <li><b>$45 deadline mechanics.</b> Same-day cutoff = end of the tour's calendar day, not 5pm. <span class="rec">Rec: end of day.</span></li>
+    <li><b>No-show default.</b> Suppress T4 until Ashley marks attended; auto-ping her at tour-end plus 1h. <span class="rec">Rec: suppress.</span></li>
+    <li><b>V3 hold.</b> Keep "$100+ this week only" out of the first batch until the $45 choke point and honest rotation land. <span class="rec">Rec: hold.</span></li>
+    <li><b>Wave plan.</b> V4 solo canary, then V1 vs V5, then scale the winner. <span class="rec">Rec: approve.</span></li>
+    <li><b>Demote Local-actions conversions</b> to secondary before any tour-conversion import (I own the execution). <span class="rec">Rec: proceed, next ads pass.</span></li>
+    <li><b>Budget.</b> Hold at the approved +$6-8/day ($121 enabled) through wave 1; add a line only when a winner is proven. <span class="rec">Rec: hold.</span></li>
+    <li><b>Batched design-QA sign-off</b> of all creative, LPs, emails, and the popup at the 7/16 gate, with preview links. <span class="rec">Rec: approve.</span></li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <h2>7 &middot; Everything, by document</h2>
+  <p class="lead">The full paper trail. 8 ground reads, 12 design lanes, 3 adversarial verifies, plus the prior tour-waiver package.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Plan</h3><div class="links">
+      <a href="MASTER-PLAN.md" target="_blank">Master plan</a><a href="COUNSEL-DOSSIER.md" target="_blank">Counsel dossier</a><a href="COUNSEL-VERDICT.txt" target="_blank">Verdict</a><a href="CONTEXT-PACK2.md" target="_blank">Context pack</a></div></div>
+    <div class="card"><h3>Design (12)</h3><div class="links">
+      <a href="design/data-tracking.md" target="_blank">data</a><a href="design/lifecycle-engine.md" target="_blank">engine</a><a href="design/email-reserve.md" target="_blank">T1</a><a href="design/winback-popup.md" target="_blank">T2</a><a href="design/email-tour-nudge.md" target="_blank">T3</a><a href="design/email-post-tour.md" target="_blank">T4</a><a href="design/campaign-grid.md" target="_blank">grid</a><a href="design/ad-variants.md" target="_blank">ads</a><a href="design/lp-factory.md" target="_blank">LPs</a><a href="design/measurement-v2.md" target="_blank">measure</a><a href="design/policy-compliance.md" target="_blank">policy</a><a href="design/improvements.md" target="_blank">ideas</a></div></div>
+    <div class="card"><h3>Ground (8) + Verify (3)</h3><div class="links">
+      <a href="ground/email-infra.md" target="_blank">email-infra</a><a href="ground/tours-fees-code.md" target="_blank">tours</a><a href="ground/kindred-portal.md" target="_blank">kindred</a><a href="ground/site-lp-conventions.md" target="_blank">LP conv</a><a href="ground/ga4-ads-state.md" target="_blank">ga4</a><a href="ground/d1-schema.md" target="_blank">schema</a><a href="ground/enrollfee-noshow.md" target="_blank">$45</a><a href="verify/feasibility.md" target="_blank">feasibility</a><a href="verify/hard-rules.md" target="_blank">hard-rules</a><a href="verify/consistency.md" target="_blank">consistency</a></div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>Prior tour-waiver package (2026-07-10)</h3><div class="links">
+    <a href="../2026-07-10-tour-waiver-test/SYNTHESIS.md" target="_blank">Synthesis + D1-D9</a><a href="../2026-07-10-tour-waiver-test/A-policy-compliance.md" target="_blank">Policy</a><a href="../2026-07-10-tour-waiver-test/B-campaign-architecture.md" target="_blank">Campaign</a><a href="../2026-07-10-tour-waiver-test/D-waitlist-flow.md" target="_blank">Waitlist flow</a><a href="../2026-07-10-tour-waiver-test/E-measurement.md" target="_blank">Measurement</a></div></div>
+</div></section>
+
+<div class="foot"><div class="wrap">
+  <p><b>Note on links.</b> Live-site links (LP, tour page) open the real production pages. Document links resolve when this file is opened from inside the gm-master repo, or from the published bundle. Orchestrated as Fable 5 over 24 Opus design agents and a 5-model counsel panel, governed by the HOOTL contract: autonomous by default, closed-loop evidence, one update and one inquiry.</p>
+  <p class="small">Growing Mindfully &middot; 750 N Street, Sacramento &middot; internal review artifact, not for publication.</p>
+</div></div>
+</body>
+</html>

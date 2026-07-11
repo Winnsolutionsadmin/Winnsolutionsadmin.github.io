@@ -1,0 +1,159 @@
+counsel: deliberate R1 — 6 model(s) blind: grok,gemini,codex,claude,glm,kimi
+counsel[R1]: gemini ok
+counsel[R1]: grok ok
+counsel[R1]: glm ok
+counsel[R1]: claude ok
+counsel[R1]: kimi ok
+counsel[R1]: codex ok
+counsel[R1]: gemini returned unparseable output — dropped
+counsel[labels]: A=glm, B=kimi, C=claude, D=grok, E=codex
+counsel: deliberate R2 — cross-examination
+counsel[R2]: grok ok
+counsel[R2]: glm ok
+counsel[R2]: kimi ok
+counsel[R2]: codex ok
+counsel[R2]: claude ok
+counsel[anomaly:A]: claude ok
+# counsel deliberate — 5/6 panelists, median credence 74%
+did not answer: gemini
+
+SCORE LEADER: kimi (score 0.728, margin 18% over claude) — a scoring heuristic, not ground truth
+
+## Ranking (score = calibration weight x median-shrunk credence x cross-exam survival)
+- **kimi** (B) score=0.728 | credence 70%->72% | +3 endorsements, -0 concrete attacks, survival 1.00
+- **claude** (C) score=0.597 | credence 66%->70% | +4 endorsements, -1 concrete attacks, survival 0.83
+- **grok** (D) score=0.592 | credence 71%->74% | +3 endorsements, -1 concrete attacks, survival 0.80
+- **codex** (E) score=0.388 | credence 79%->80% | +3 endorsements, -4 concrete attacks, survival 0.50
+- **glm** (A) score=0.069 | credence 92%->88% | +0 endorsements, -2 concrete attacks, survival 0.33  ** REFUTED OUTLIER (score contained to 25%)
+
+## Final positions
+
+============================================================
+### kimi (B, score 0.728)
+P1. WAVE SEQUENCING. +90. Expected impact [thin-traffic math ~55%]: 43-58 clicks/week split five ways produces ~10 clicks/variant, insufficient for any decision. Sequential waves concentrate signal. Risk: Slower live variants, but learning speed dominates launch speed. Common practice: standard for low-volume paid search. Reversibility: High.
+
+P2. V4-FIRST COLD-START. +80. Expected impact [baseline-data necessity ~50%]: Real traffic must fire tour_booked/completed before waiver logic can be measured or optimized. Risk: Some spend on a weaker message. Common practice: cold-start baseline is normal; no prior tour booking is the unusual constraint. Reversibility: High.
+
+P3. V3 HOLD vs FIX-NOW. +75. Expected impact [operational-honesty/fulfillment risk ~55%]: Do not advertise a $45 waiver the deposit stack cannot honor. Risk: Strongest offer delayed. Common practice: never promote without fulfillment choke point. Reversibility: High.
+
+P4. EMAIL CADENCE/COUNT. +55. Expected impact [brand-trust protection ~45%]: Restraint fits calm childcare brand and avoids fatigue. Risk: Long-cycle waitlist families may be under-touched; childcare decisions span months. Common practice: lifetime 3-email cap is conservative. Reversibility: Medium.
+
+P5. SAME-DAY $45 DEADLINE MECHANICS. +80. Expected impact [honesty/brand integrity ~60%]: End-of-day removes the 30-minute dark-pattern window for afternoon tours. Risk: Slightly longer discount window. Common practice: fair; 5 PM cutoff after 3 PM tour is exploitative. Reversibility: High.
+
+P6. $45 PRECEDENCE RULE. +70. Expected impact [operational clarity/conflict avoidance ~50%]: One waiver state prevents conflicting offers across T3/T4/V3. Risk: First-writer-wins could strand a family with a worse later offer. Common practice: single promo-state source of truth is standard. Reversibility: Medium.
+
+P7. GRID SCOPE. +35. Expected impact [semantic correctness ~70%]: Acquisition source is family metadata, not a per-campaign column. Risk: Low direct impact; mostly model hygiene. Common practice: row attribute is standard. Reversibility: High.
+
+P8. T1 24-HOUR WINDOW. +60. Expected impact [brand-appropriate pacing ~50%]: Self-serve window respects user agency and aligns with calm voice. Risk: Intent decay versus immediate send; in a thin funnel, speed-to-lead matters. Common practice: delayed nurture exists; boundary-time sending is unusual. Reversibility: High.
+
+P9. OPEN ENROLLMENT COHORT TRIGGER MAPPING. +85. Expected impact [audience completeness ~60%]: Literal fee_paid=1 silently skips fee-waived open enrollment and table_day grandfathered cohorts, defeating the test. Risk: OR predicates slightly complicate query. Common practice: correct cohort segmentation is table stakes; original predicate appears buggy. Reversibility: High.
+
+P10. HOOTL COMPLIANCE. +35. Expected impact [owner-governance fit ~35%]: Matches low-touch preference and hard gates on money/copy/deploys. Risk [autonomous-send tail risk ~35%]: Parent-facing sends can misfire; weekly batched inquiry may be too slow with no prior tour-booking history. Common practice: childcare marketing rarely this autonomous. Reversibility: Medium.
+
+P11. CLICKWRAP-AS-IS. -55. Expected impact [legal/confusion risk ~65%]: A waived family signs terms describing a non-refundable fee they did not pay. Risk: Dispute exposure and brand trust damage; fix is a conditional string. Common practice: fee changes normally get terms update. Reversibility: Low-medium, but signed records persist.
+
+P12. NO-SHOW DEFAULT. -10. Expected impact [thin-volume opportunity cost ~40%]: Catches attended families if marking slips. Risk [false-positive brand risk ~45%]: Sends $45 offer to no-shows, looking sloppy on a mindfulness brand. Common practice: default should suppress on unknown; this inverts that. Reversibility: High.
+
+N1. ATTACK VOLUME CONSTRAINT DIRECTLY. +70. Proposal: Before elaborate lifecycle instrumentation, fix the rank/impression limitation that caps the whole funnel via bids, Quality Score, ad relevance, and local GBP work. Expected impact [funnel ceiling ~60%]: No email or landing-page optimization fixes a 50-click trickle. Risk: Effort diverted from built assets. Common practice: standard growth constraint diagnosis. Reversibility: High.
+
+N2. PREREGISTERED LOW-VOLUME DECISION GUARD. +75. Proposal: Replace the automatic 2-weeks-or-100-sessions SCALE/ITERATE/KILL rule with an explicit INCONCLUSIVE outcome unless credible conversion evidence exists. Expected impact [false-decision prevention ~60%]: Prevents noise-driven reallocations. Risk: Slower decisions. Common practice: standard sparse-event experimentation hygiene. Reversibility: High.
+
+OVERALL: +50. The plan is directionally sound and benefits from heavy substrate reuse, but it is capped by thin paid volume and contains avoidable trust/legal failures. Single highest-leverage move: P1 (wave sequencing), because without it the ad-matrix learning loop is statistical noise. Single biggest risk: P11 (clickwrap-as-is), because signing families to terms describing a fee they did not pay is an unforced legal and brand liability. Other material risks are autonomous-send misfires under P10 and false-positive T4 sends under P12.
+
+============================================================
+### claude (C, score 0.597)
+Position largely holds, sharpened by two rivals. The binding constraint is paid volume (43-58 clicks/wk, rank/impression-limited); it caps every downstream metric and makes the elaborate lifecycle/matrix instrumentation optimization of a stream that barely exists. Highest-leverage moves: (1) P9 — fix the fee_paid=1 trigger so the test does not silently exclude its own fee-waived open-enrollment and table_day cohorts (a defeating bug, +82); (2) attack the volume constraint itself via impression-share/QS/bids/GBP-local (my N2, +72); and now (3) D's offline-tour instrumentation — capture phone/walk-in/Ashley tours into funnel_events immediately so measurement is not hostage to the never-fired online path (+70). Wire N1's 'INCONCLUSIVE → hold' as a pre-registered decision outcome so ~100 sessions yielding 2-5 conversions cannot manufacture confident SCALE/KILL calls. P1 (+82) and P2 (+70) are correct and I reject E's +20 on P2 (phantom delay + bid-signal error). On the honesty defaults: P5 end-of-day deadline +60, P8 24h delay mildly negative (-12, and E's quiet-hours 24h→36h stacking pushes me no higher), P12 no-show default I hold at -20 not E's -78 — inverting the default to suppress-on-unmarked forfeits legit high-intent T4s to families who DID attend, so the real fix is conditional copy, not killing the send. Biggest risk unchanged: the whole measurement apparatus sits on volume too thin to reach significance and will produce confident-looking noise unless the hold-default is wired in; P11 (contradictory clickwrap in a licensed-childcare context, -35) is the cheap-to-fix compliance own-goal that is dumb to accept.
+Attacked by: codex — C is strongest overall, but its +70 on P2 conflates validating instrumentation with obtaining real demand data. Controlled test bookings can exercise D1 writes,
+
+============================================================
+### grok (D, score 0.592)
+P1:+90. Impact: 43-58 clicks/wk five-way is ~8-12 clicks/variant/wk—noise. Pipeline max-2 is the only powered design. Risk: seasonal confound across waves. Practice: standard low-volume. Reversible: yes.
+P2:+60. Impact: must fire first real tour conversions before starring them; zero-gate V4 is right cold-start. Risk: E is right that multi-week exclusive V4 burns $6.4-9.4k/wk seats—run short canary to first bookings, not a long solo campaign. Practice: baseline then offer. Reversible: yes.
+P3:+90. Impact: no stacked $100+ until general $45 choke exists across 7 deposit sites. Risk: delays strongest offer. Practice: never advertise unfulfillable. Reversible: yes.
+P4:+20. Impact: weekly ceiling fits mindful brand; lifetime 3 timed emails is too tight for multi-month childcare (E correct)—keep journey cadence, add inventory re-open legs later. Risk: under-touch long-cycle. Practice: journey caps common, lifetime caps unusual. Reversible: yes.
+P5:+85. Impact: 11:59pm PT keeps afternoon-tour T4 honest; 5pm after ~4:30 T4 is a ~30-min dark pattern. Risk: slightly softer urgency. Practice: EOD fair. Reversible: yes.
+P6:+70. Impact: one waiver state + shared deadline prevents double promises. Risk: first-writer must allow explicit invalidate on reschedule/cancel (E). Practice: single promo state standard. Reversible: medium.
+P7:+40. Impact: acquisition source is a row attribute, not a received campaign column. Risk: low. Practice: standard. Reversible: yes.
+P8:-10. Impact: fee-settled is peak intent; mandatory +24h delay decays the only hot moment. Read 'within 24h' as no-later-than, send same-day (quiet hours apply). Risk: slight pushiness vs brand. Practice: prompt post-purchase nurture is standard. Reversible: yes.
+P9:+95. Impact: fee_paid=1 alone SKIPS open_enrollment + table_day—the test's own subjects. Correctness bug, not taste. Risk: none. Practice: standard. Reversible: yes.
+P10:+40. Impact: HOOTL fits sole operator IF kill-switches + design-QA are real. Risk: tours never booked; weekly-only owner touch + self-heal can leave parent-facing automation failing dark for days. Practice: unusual day-1 for unproven path. Reversible: via flags.
+P11:-50. Impact: waived family signing non-refundable-fee terms is brand/legal hygiene failure; fix is a small clickwrap/receipt delta, not counsel theater—but launching as-is still hurts. Risk: signed mismatched records persist. Practice: bad. Reversible: partial.
+P12:-30. Impact: unmarked≠attended. T4 promising same-day $45 to a no-show is false parent comms and burns offer credibility. Prefer hold-or-soft-check until mark or short SLA default with Ashley ping. Risk: delayed T4 if marks lag. Practice: positive confirmation better. Reversible: yes.
+N1:+78. Instrument offline/phone/Ashley-booked tours into funnel_events now so measurement is not hostage to a path that has never fired.
+N2:+82. Decision gate: require min tour_booked (not 100 LP sessions alone) + bias Wave0-1 to Infant (emptiest, highest weekly burn).
+OVERALL:+58. Highest-leverage: P1 sequencing + P9 cohort predicates + short V4 cold-start so learning and fulfillment are real. Biggest risk: parent-facing false states—P11 clickwrap mismatch, P12 no-show→T4, P10 silent HOOTL failure—while empty seats burn. Weight>=25% on scores: thin traffic dilution; unproven tour path / missing $45 choke; honesty of fee/attendance communications.
+Attacked by: glm — Panelist D explicitly names P11 (Clickwrap-As-Is) as the single biggest risk, yet assigns it a meager -22. In a licensed childcare context, presenting terms des
+
+============================================================
+### codex (E, score 0.388)
+P1. WAVE SEQUENCING: +86
+Concentrating 43-58 weekly clicks avoids meaningless five-way cells, although sequential waves remain seasonally confounded. This is standard low-volume practice and highly reversible. Weight >=25%: avoiding traffic dilution, 60%.
+
+P2. V4-FIRST COLD-START: +18
+A clean demand baseline helps, but instrumentation can be validated with a controlled canary; a full solo wave delays the ready waiver test during expensive vacancies. Short canaries are common, while weeks of exclusive baseline traffic are unusual. Weights >=25%: baseline learning, 30%; delay and vacancy opportunity cost, 45%.
+
+P3. V3 HOLD: +96
+Advertising a stacked waiver before the deposit choke point exists creates a broken promise and billing inconsistency. Holding it is standard offer governance and fully reversible after end-to-end validation. Weights >=25%: enforceability, 60%; truthful urgency, 25%.
+
+P4. EMAIL CADENCE/COUNT: -26
+The weekly ceiling protects trust, but three timed emails per family ever abandons long-cycle waitlist families whose openings may be months away. Frequency caps are standard; a lifetime three-message cap is not. Weights >=25%: lost long-cycle conversions, 45%; brand and deliverability protection, 30%.
+
+P5. SAME-DAY DEADLINE: +91
+End-of-calendar-day gives afternoon families a genuinely usable offer and avoids a 30-minute dark pattern. The extra waiver exposure is trivial; calendar-day deadlines are common and configurable. Weight >=25%: fair, usable afternoon eligibility, 70%.
+
+P6. WAIVER PRECEDENCE: +34
+Centralized waiver state prevents doubled or contradictory promises. Immutable first-writer deadlines can become wrong after rescheduling or other legitimate state corrections, so event history must permit controlled amendment. Weights >=25%: conflict prevention, 35%; frozen-invalid-deadline risk, 40%.
+
+P7. GRID SCOPE: +56
+Acquisition source is family metadata, not a campaign received by that family. This is standard analytical modeling and readily reversible, provided the comparison card remains filterable. Weight >=25%: semantic clarity and operator usability, 55%.
+
+P8. T1 AT 24 HOURS: -42
+Within 24 hours is a ceiling, not a command to wait until the boundary. Exact-boundary scheduling loses peak intent and can become roughly 36 hours after quiet-hour deferral; triggered short-delay follow-up is more common. Weight >=25%: speed-to-lead and intent decay, 60%.
+
+P9. COHORT TRIGGER MAPPING: +95
+Canonical fee-settled logic is mandatory; otherwise waived and grandfathered families silently disappear from the journey. The predicate must identify the specific $65 settlement state, not a generic waiver flag. Weight >=25%: complete and correct cohort coverage, 70%.
+
+P10. HOOTL COMPLIANCE: +48
+Approved automation, evidence rows, and kill switches reduce owner bottlenecks. Weekly batching must not suppress immediate incident escalation, because sent parent messages cannot be recalled. Weights >=25%: owner-throughput improvement, 40%; irreversible automation failure, 30%.
+
+P11. CLICKWRAP-AS-IS: -44
+The mismatch is avoidable and creates confusing assent records, but the exact legal severity depends on whether the text asserts payment or merely says fees actually paid are non-refundable. Conditional, versioned terms are standard; historical signed records are not fully reversible. Weights >=25%: transaction-to-terms ambiguity, 50%; persistent records, 25%.
+
+P12. UNKNOWN MEANS ATTENDED: -64
+Missing data is not evidence of attendance. Staff omissions can send an implied post-tour benefit to no-shows; positive check-in or neutral unresolved handling is standard. Weights >=25%: false parent communication and benefit, 55%; avoiding missed T4s from staff omission, 25%.
+
+N1. CAPACITY-VALUE ROUTING: +94
+Route and attribute every source, including offline or staff-booked tours if present, by program availability, desired start date, and occupied seat-weeks. This is standard constrained-inventory optimization; stale capacity inputs are the main risk. Weight >=25%: seat-specific vacancy economics, 65%.
+
+N2. LOW-VOLUME DECISION GUARD: +88
+Replace automatic decisions at two weeks or 100 sessions with a preregistered sequential rule that permits INCONCLUSIVE. Sparse downstream events otherwise manufacture false winners and losers. Weight >=25%: false-selection risk, 65%.
+
+OVERALL: +41
+The architecture and cohort correction are useful, but several defaults confuse automation convenience with evidence.
+Highest-leverage move: N1, because undifferentiated tour volume is inferior to filling the specific open seat-weeks.
+Biggest risk: sparse data producing confident SCALE or KILL decisions that redirect the entire funnel on noise.
+Overall weights >=25%: vacancy upside and reused substrate, 30%; low-sample inference risk, 25%; parent-trust and terms accuracy, 25%. Credence is limited by missing exact clickwrap text, attendance-mark error rates, and conversion baselines.
+Attacked by: grok — E's P2 core mechanism is wrong: 'real conversions are unnecessary for validating instrumentation.' Under this plan, measurement is not a GA4 tag-debug problem. ; glm — Panelist E severely undervalues P2 (V4-First Cold-Start, scoring it +20) by claiming it delays an already-built waiver test. This ignores a hard technical depen; kimi — E scores P2 at +20 with the claim that 'real conversions are unnecessary for validating instrumentation' and that V4 solo 'delays an already-built waiver test w; claude — E's P2 score of +20 rests on two errors. First, a false equivalence: E writes 'real conversions are unnecessary for validating instrumentation,' but V4-first is
+
+============================================================
+### glm (A, score 0.069, refuted-outlier)
+P1: +95. Thin paid volume (43-58 clicks/week) makes parallel testing noise. Sequencing is an absolute necessity. Standard practice, high reversibility.
+P2: +85. Required to cold-start dead tour conversion events before layering complex waiver mechanics. E's delay risk is noted but secondary to instrumentation.
+P3: +90. Shipping a $45 waiver the system cannot honor is a broken-promise risk. Correct to hold.
+P4: +20. Flipped from positive. A strict lifetime cap of 3 emails strands long-cycle waitlist families in a category with months-long decision windows.
+P5: +85. End-of-day deadline prevents a 30-minute dark pattern for afternoon tours. Essential for brand integrity.
+P6: +50. Centralized state prevents double waivers, but first-writer-wins immutability risks freezing invalid deadlines if tours reschedule.
+P7: +60. Correct data normalization to treat acquisition source as a row attribute rather than received campaigns.
+P8: -30. Flipped. 'Within 24h' means send promptly. Delaying a 'Reserve Your Space' email by 24h after a high-intent fee payment bleeds momentum.
+P9: +100. Crucial bug fix. A literal fee_paid=1 trigger silently skips the fee-waived open-enrollment cohort, breaking the test entirely.
+P10: +45. HOOTL is operationally rational, but rigid weekly batched inquiry leaves silent automation failures unaddressed.
+P11: -80. Waived families signing non-refundable fee terms is a legal and trust liability. Trivial to fix, dumb to accept.
+P12: -70. Flipped. Defaulting unmarked tours to attended will trigger embarrassing false-positive 'glad you came' emails to no-shows, destroying a mindfulness brand's trust.
+N1 (NEW: Low-Volume Decision Guard): +90. Pre-register 'insufficient data -> hold' as a test outcome, replacing the automatic 2-week/100-session decision gate that operates on pure noise.
+N2 (NEW: Capacity-Value Routing): +85. Route Wave 0-1 traffic to prioritize filling infant/preschool inventory (emptiest seats, highest burn) rather than undifferentiated tours.
+OVERALL: +55. Highest-leverage move: P1 (wave sequencing) to ensure statistical legibility. Biggest risk: P11 (clickwrap liability) or P12 (false-positive brand damage).
+Attacked by: grok — A's +90 on P8 and -80 on P11 overclaim in opposite directions without mechanism. P8: a family that just fee-settled is at peak intent; reading 'within 24h' as a; claude — A's credence of 92 is unsupported by its reasoning: five +100s and near-uniform 'Risk: Low / Common practice: Standard' show no discrimination between a defeati
+Refuted because: P8 (score -30, flipped) and P12 (score -70, flipped) are refutable, but the harness asks me to refute THE CLAIM — the panelist's full ballot — and its load-bear | The claim contains internal contradictions and misreadings of the dossier. First, it labels P1 (wave sequencing) the 'highest-leverage move' but scores P9 +100 
+
+_synthesis belongs to the caller: weigh the ranking, read every dissent, decide._
+counsel[anomaly:A]: kimi ok
